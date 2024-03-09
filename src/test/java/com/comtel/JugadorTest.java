@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.comtel.ruta.Jugador;
 import com.comtel.ruta.Mazo;
-import java.util.LinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +18,13 @@ public class JugadorTest {
     @DisplayName("Inicializar jugador")
     public void testIniciarMano() {
         var mazo = new Mazo();
-        var jugadores = new LinkedList<Jugador>();
         var cantidadCartas = 6;
         var cantidadJugadores = 6;
         var cartasTotales = Juego.CARTAS_TOTALES;
         
         for(int i = 0; i < cantidadJugadores; i++){
-            jugadores.push(new Jugador(mazo));
+            var jugador = new Jugador();
+            jugador.tomarMano(mazo);
         }
         
         var obtenido = mazo.size();

@@ -15,7 +15,7 @@ public final class Mazo {
         this.mazo = this.crearMazo();
     }
     
-    public Carta robar(){
+    public Carta sacar(){
         return this.mazo.poll();
     }
     
@@ -25,10 +25,6 @@ public final class Mazo {
     
     public boolean vacio() {
         return this.mazo.isEmpty();
-    }
-    
-    public void mezclar(){
-        Collections.shuffle(this.mazo);
     }
     
     private LinkedList<Carta> crearMazo() {
@@ -67,6 +63,8 @@ public final class Mazo {
                 result.add(new Carta(tupla.tipo, tupla.subtipo));
             }
         }
+        
+        Collections.shuffle(result);
         
         return result;
     }
