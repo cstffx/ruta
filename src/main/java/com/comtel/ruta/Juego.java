@@ -8,14 +8,10 @@ import java.util.LinkedList;
  */
 public final class Juego {
 
+    private Mazo mazo = new Mazo(); 
     private final LinkedList<Jugador> jugadores;
     
-    public Juego() {
-      
+    public Juego() { 
         this.jugadores = new LinkedList<>();
-    }
-    
-    public void mezclar() {
-        
     }
 }

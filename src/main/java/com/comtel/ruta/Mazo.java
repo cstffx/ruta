@@ -1,5 +1,6 @@
 package com.comtel.ruta;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -19,7 +20,7 @@ public final class Mazo {
     }
     
     public void mezclar(){
-        // TODO
+        Collections.shuffle(this.mazo);
     }
     
     private LinkedList<Carta> crearMazo() {
