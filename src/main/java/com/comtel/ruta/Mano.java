@@ -20,7 +20,7 @@ public class Mano extends Pila {
      * @param index
      * @throws Exception 
      */
-    void descartar(int index) throws Exception {
+    void enviarAPozo(int index) throws Exception {
         this.sacar(index);
     }
 }

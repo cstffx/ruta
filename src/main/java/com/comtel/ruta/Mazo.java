@@ -32,11 +32,11 @@ public final class Mazo extends Pila {
         vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.ViaLibre, 1));
         vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.AzAlVolante, 1));
         
-        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia4200Km, 4));
-        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia12100Km, 12));
-        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1075Km, 10));
-        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1050Km, 10));
-        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1025Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia200Km, 4));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia100Km, 12));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia75Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia50Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km, 10));
         
         vi.push(new CartaTupla(CartaTipo.SemaforoVerde, CartaSubtipo.Ninguno, 1));
         vi.push(new CartaTupla(CartaTipo.SemaforoRojo, CartaSubtipo.Ninguno, 1));

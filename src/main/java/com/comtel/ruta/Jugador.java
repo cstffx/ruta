@@ -7,35 +7,52 @@ import java.util.LinkedList;
  * @author user
  */
 public class Jugador {
-    
+
     private int juegosGanados = 0;
-    private final Pila ataque = new Pila(); 
-    private final Pila defensa = new Pila();
+    private int equipo = 0;
+    private int puntuacion = 0; 
+    private final Pila ataqueDefensa = new Pila();
+    private final Pila velocidad = new Pila();
+    private final PilaKilometros kilometrica = new PilaKilometros();
+    private final Pila contrataque = new Pila();
+    private final Pila seguridadEscudo = new Pila();
+
     private final Mano mano = new Mano();
-    
-    public LinkedList<Carta> tomar(Mazo mazo, int cantidad){
+
+    public Jugador(int equipo) {
+        this.equipo = equipo;
+    }
+
+    public LinkedList<Carta> tomar(Mazo mazo, int cantidad) {
         LinkedList<Carta> cartasTomadas = new LinkedList<>();
         this.mano.vaciar();
-        for(int i = 0; i < cantidad; i++){
+        for (int i = 0; i < cantidad; i++) {
             // Pasamos la ultima carta del mazo a la mano
             var carta = Pila.transferir(mazo, this.mano);
-            cartasTomadas.push(carta);
+            if (carta != null) {
+                cartasTomadas.push(carta);
+            }
         }
         return cartasTomadas;
     }
-    
+
     public Mano getMano() {
         return this.mano;
     }
-    
+
+    public PilaKilometros getPilaKilometrica() {
+        return this.kilometrica;
+    }
+
     public void anotarVictoria() {
         ++this.juegosGanados;
     }
-    
-    public void jugarCarta(int index) throws Exception{
-        var carta = this.mano.sacar(index);
-        var tipo = carta.getTipo();
-        var subtipo = carta.getSubtipo(); 
-        // TODO Jugar carta
+
+    public void anotarPuntos(int puntos) {
+        this.puntuacion += puntos;
+    }
+
+    public Pila getPilaSeguridadEscudo() {
+        return this.seguridadEscudo;
     }
 }

@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
  * @author user
  */
 public class JugadorTest {
-    
     @Test
     @DisplayName("Inicializar jugador")
     public void testIniciarMano() {
@@ -23,8 +22,8 @@ public class JugadorTest {
         var cartasTotales = Juego.CARTAS_TOTALES;
         
         for(int i = 0; i < cantidadJugadores; i++){
-            var jugador = new Jugador();
-            jugador.tomar(mazo);
+            var jugador = new Jugador(0);
+            jugador.tomar(mazo, Juego.CARTAS_EN_MANO);
         }
         
         var obtenido = mazo.size();

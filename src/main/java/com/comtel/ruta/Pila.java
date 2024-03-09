@@ -14,7 +14,9 @@ public class Pila {
 
     public static Carta transferir(Pila a, Pila b, int index) {
         var carta = a.sacar(index);
-        b.meter(carta);
+        if( carta != null){
+            b.meter(carta);            
+        }
         return carta;
     }
 
@@ -24,6 +26,10 @@ public class Pila {
 
     public int size() {
         return this.cartas.size();
+    }
+
+    public boolean vacio() {
+        return this.cartas.isEmpty();
     }
 
     public Carta sacar(int index) {

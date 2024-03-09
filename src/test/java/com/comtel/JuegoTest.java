@@ -17,24 +17,22 @@ public class JuegoTest {
     @DisplayName("Inicializar juego")
     public void testNuevoJuego() {
         var cantJugadores = 6;
-        var juego = new Juego(cantJugadores);
+        var juego = new Juego();
         var jugadores = juego.getTurno().getJugadores();
 
-        {
-            var obtenido = jugadores.size();
-            var esperado = cantJugadores;
-            assertEquals(obtenido, esperado);
+        for (int i = 0; i < cantJugadores; i++) {
+            jugadores.push(new Jugador(0));
         }
-        
-        {
-            for(Jugador jugador: jugadores){
-                var mano = jugador.getMano();
-                var obtenido = mano.size();
-                var esperado = Juego.CARTAS_EN_MANO;
-                assertEquals(obtenido, esperado);
-            }
+
+        juego.nuevoJuego();
+
+        for (Jugador jugador : jugadores) {
+            var mano = jugador.getMano();
+            var obtenido = mano.size();
+            var esperado = Juego.CARTAS_EN_MANO;
+            assertEquals(esperado, obtenido);
         }
-        
+
         var mazo = juego.getMazo();
         var obtenido = mazo.size();
         var esperado = Juego.CARTAS_TOTALES - (cantJugadores * Juego.CARTAS_EN_MANO);
