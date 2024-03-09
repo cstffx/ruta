@@ -15,6 +15,10 @@ public final class Mazo {
         this.mazo = this.crearMazo();
     }
     
+    public Carta robar(){
+        return this.mazo.poll();
+    }
+    
     public int size() {
         return this.mazo.size();
     }
