@@ -23,6 +23,10 @@ public final class Mazo {
         return this.mazo.size();
     }
     
+    public boolean vacio() {
+        return this.mazo.isEmpty();
+    }
+    
     public void mezclar(){
         Collections.shuffle(this.mazo);
     }
