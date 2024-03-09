@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 public class Mano {
     
-    private LinkedList<Carta> cartas;
+    private final LinkedList<Carta> cartas;
     
     public Mano(Mazo mazo) {
         // Roba 6 cartas del mazo al crear la mano.
@@ -18,10 +18,14 @@ public class Mano {
         }
     }
     
-    void descartar(int index) throws Exception {
-        if(this.cartas.size() != 7){
-            throw new Exception("Cantidad de cartas insuficientes para descartar");
+    public Carta sacar(int index) throws Exception {
+         if(this.cartas.size() != 7){
+            throw new Exception("Cantidad de cartas insuficientes para descartar.");
         }
-        this.cartas.remove(index);
+        return this.cartas.remove(index);
+    }
+    
+    void descartar(int index) throws Exception {
+        this.sacar(index);
     }
 }
