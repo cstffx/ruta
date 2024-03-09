@@ -41,8 +41,12 @@ public class Partida {
                 puntos += Juego.PUNTOS_POR_VIAJE_SEGURO;                
             }
 
-            // Verificar eliminacion de oponentes.             
             if(completo){
+                // Advertencia!!
+                // Los puntos por viaje completo 
+                // son contados por el jugador en getPuntos(). 
+                
+                // Verificar eliminacion de oponentes.             
                 var eliminacion = true;
                 for(Jugador otroJugador: jugadores){
                     if(otroJugador == jugador || otroJugador.mismoEquipo(jugador)){
