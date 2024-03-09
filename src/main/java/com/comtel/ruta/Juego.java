@@ -1,5 +1,9 @@
 package com.comtel.ruta;
 
+enum TipoPila {
+    
+}
+
 /**
  *
  * @author user
@@ -26,8 +30,21 @@ public final class Juego {
         // Repartir cartas.
         var jugadores = this.turno.getJugadores();
         for (Jugador jugador : jugadores) {
-            jugador.tomarMano(mazo);
+            jugador.tomar(mazo, 6);
         }
+    }
+    
+    public Carta robarCarta(){
+        var jugador = this.turno.getJugadorActual();
+        var cartas = jugador.tomar(mazo, 1);
+        if(cartas.isEmpty()){
+            return null;
+        }
+        return cartas.get(0);
+    }
+    
+    public void jugarCarta(int index, TipoPila pila){ 
+        
     }
 
     public boolean esFinal() {

@@ -1,34 +1,25 @@
 package com.comtel.ruta;
 
-import java.util.LinkedList;
-
 /**
  *
  * @author user
  */
-public class Mano {
+public class Mano extends Pila {
     
-    private final LinkedList<Carta> cartas = new LinkedList<>();
-    
-    public void vaciar() {
-        this.cartas.clear();
-    }
-    
-    public void meter(Carta carta){
-        this.cartas.push(carta);
-    }
-    
-    public Carta sacar(int index) throws Exception {
-         if(this.cartas.size() != 7){
-            throw new Exception("Cantidad de cartas insuficientes para descartar.");
+    @Override
+    public Carta sacar(int i) {
+        if(this.size() == 7){
+            return super.sacar(i);            
         }
-        return this.cartas.remove(index);
+        return null;
     }
     
-    public int size() {
-        return this.cartas.size();
-    }
     
+    /**
+     * Envía una carta al pozo
+     * @param index
+     * @throws Exception 
+     */
     void descartar(int index) throws Exception {
         this.sacar(index);
     }

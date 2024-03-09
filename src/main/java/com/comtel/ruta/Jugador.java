@@ -1,5 +1,7 @@
 package com.comtel.ruta;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author user
@@ -11,15 +13,15 @@ public class Jugador {
     private final Pila defensa = new Pila();
     private final Mano mano = new Mano();
     
-    public void tomarMano(Mazo mazo){
+    public LinkedList<Carta> tomar(Mazo mazo, int cantidad){
+        LinkedList<Carta> cartasTomadas = new LinkedList<>();
         this.mano.vaciar();
-        for(int i = 0; i < 6; i++){
-            this.robarCarta(mazo);
+        for(int i = 0; i < cantidad; i++){
+            // Pasamos la ultima carta del mazo a la mano
+            var carta = Pila.transferir(mazo, this.mano);
+            cartasTomadas.push(carta);
         }
-    }
-    
-    public void robarCarta(Mazo mazo){
-        this.mano.meter(mazo.sacar());
+        return cartasTomadas;
     }
     
     public Mano getMano() {

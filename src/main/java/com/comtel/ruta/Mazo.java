@@ -1,34 +1,18 @@
 package com.comtel.ruta;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
  *
  * @author user
  */
-public final class Mazo {
-        
-    private final LinkedList<Carta> mazo;
-        
+public final class Mazo extends Pila {
+    
     public Mazo() {
-        this.mazo = this.crearMazo();
-    }
-    
-    public Carta sacar(){
-        return this.mazo.poll();
-    }
-    
-    public int size() {
-        return this.mazo.size();
-    }
-    
-    public boolean vacio() {
-        return this.mazo.isEmpty();
+        this.crearMazo();
     }
     
     private LinkedList<Carta> crearMazo() {
-        
         LinkedList<CartaTupla> vi = new LinkedList<>();
         
         vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Siga, 3));
@@ -60,12 +44,12 @@ public final class Mazo {
         LinkedList<Carta> result = new LinkedList<>();
         for( CartaTupla tupla: vi ){
             for(int i = 0; i < tupla.cantidad; i++){
-                result.add(new Carta(tupla.tipo, tupla.subtipo));
+                this.meter(new Carta(tupla.tipo, tupla.subtipo));
             }
         }
         
-        Collections.shuffle(result);
-        
-        return result;
+        this.mezclar();
+                
+        return this.getAll();
     }
 }
