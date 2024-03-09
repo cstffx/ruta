@@ -20,8 +20,8 @@ public final class Mazo extends Pila {
         this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.Siga), 3);
         this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.Pinchazo), 3);
         this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.Accidente), 3);
-        this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.LimiteVelocidad), 3);
-        this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.Pare), 3);
+        this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.LimiteVelocidad), 4);
+        this.meter(new Carta(CartaTipo.PeligroAtaque, CartaSubtipo.Pare), 5);
         
         this.meter(new Carta(CartaTipo.SolucionesDefensa, CartaSubtipo.Gasolina), 6);
         this.meter(new Carta(CartaTipo.SolucionesDefensa, CartaSubtipo.LlantaRepuesto), 6);

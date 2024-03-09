@@ -28,7 +28,36 @@ public class Partida {
             var puntos = 0;
             // Puntos del jugador. 
             puntos += jugador.getPuntos();
-            // TODO: Puntos condiciones adicionales.
+
+            var seguro = jugador.esViajeSeguro();
+            var completo = jugador.esViajeCompleto();
+            var mazoVacio = mazo.vacio();
+
+            if (completo && mazoVacio) {
+                puntos += Juego.PUNTOS_POR_ACCION_RETARDADA;
+            }
+
+            if(seguro){
+                puntos += Juego.PUNTOS_POR_VIAJE_SEGURO;                
+            }
+
+            // Verificar eliminacion de oponentes.             
+            if(completo){
+                var eliminacion = true;
+                for(Jugador otroJugador: jugadores){
+                    if(otroJugador == jugador || otroJugador.mismoEquipo(jugador)){
+                        continue;
+                    }
+                    if(jugador.tieneCartaDistancia()){
+                        eliminacion = false;
+                        break;
+                    }
+                }  
+                if(eliminacion){
+                    puntos += Juego.PUNTOS_POR_ELIMINACION;
+                }
+            }
+            
             jugador.anotarPuntos(puntos);
         }
     }
@@ -55,6 +84,7 @@ public class Partida {
 
     /**
      * Retorna true si todas las manos estan vacias.
+     *
      * @return
      */
     public boolean getManosVacias() {
@@ -88,13 +118,15 @@ public class Partida {
         mazo.reiniciar();
         for (Jugador jugador : jugadores) {
             Mano mano = jugador.getMano();
-            
+
             // Quitar cartas de las pilas.
             jugador.vaciarPilas();
-            
+
             // Nueva mano
             mano.vaciar();
-            Pila.transferir(mazo, mano, 6);            
+            for (int i = 0; i < Juego.CARTAS_EN_MANO; i++) {
+                Pila.transferir(mazo, mano, 6);
+            }
         }
     }
 
@@ -105,5 +137,28 @@ public class Partida {
             return null;
         }
         return cartas.get(0);
+    }
+
+    public void jugada(ConfiguracionJugada jugada) throws Exception {
+        var index = jugada.indiceCarta;
+        var jugador = getJugadorActual();
+        var mano = jugador.getMano();
+
+        if (jugada.enviarAPozo) {
+            mano.enviarAPozo(index);
+            return;
+        }
+
+        var carta = mano.getCarta(index);
+
+        Pila pila = null;
+
+        // TODO: Decidir a donde mover la carta.
+        if (carta.isKilometrica()) {
+            pila = jugador.getPilaKilometrica();
+        }
+
+        // Mover una carta especifica de la mano a una pila.
+        Pila.transferir(mano, pila, index);
     }
 }

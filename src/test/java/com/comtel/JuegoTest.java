@@ -18,7 +18,7 @@ public class JuegoTest {
     public void testNuevoJuego() {
         var cantJugadores = 6;
         var juego = new Juego();
-        var jugadores = juego.getTurno().getJugadores();
+        var jugadores = juego.getPartida().getJugadores();
 
         for (int i = 0; i < cantJugadores; i++) {
             jugadores.push(new Jugador(0));
@@ -32,8 +32,9 @@ public class JuegoTest {
             var esperado = Juego.CARTAS_EN_MANO;
             assertEquals(esperado, obtenido);
         }
-
-        var mazo = juego.getMazo();
+        
+        var partida = juego.getPartida();
+        var mazo = partida.getMazo();
         var obtenido = mazo.size();
         var esperado = Juego.CARTAS_TOTALES - (cantJugadores * Juego.CARTAS_EN_MANO);
         assertEquals(obtenido, esperado);

@@ -6,8 +6,8 @@ package com.comtel.ruta;
  */
 public class PilaKilometros extends Pila {
     
-    public boolean viajeSeguro() {
-        var cartas = this.getAll();
+    public boolean esViajeSeguro() {
+        var cartas = this.getAll(); 
         for(Carta carta: cartas){
             if(Juego.KM_INSEGUROS == carta.getKilometros()){
                 return false;

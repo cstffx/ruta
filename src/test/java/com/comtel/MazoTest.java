@@ -18,6 +18,7 @@ public class MazoTest {
     @DisplayName("El mazo debe contener 106 cartas")
     public void crearMazoTest() {
         Mazo mazo = new Mazo();
+        mazo.reiniciar();
         assertEquals(Juego.CARTAS_TOTALES, mazo.size());
     }
 }

@@ -19,6 +19,8 @@ public final class Juego {
     public static int KILOMETROS_POR_VIAJE_COMPLETO = 1000;
     public static int PUNTOS_POR_ACCION_RETARDADA = 300;
     public static int PUNTOS_POR_VIAJE_SEGURO = 300;
+    public static int PUNTOS_POR_ELIMINACION = 500;
+    public static int PUNTOS_MIN_PARA_GANAR = 5000;
     
     private final Partida partida;
 
@@ -38,30 +40,17 @@ public final class Juego {
         partida.contabilizarPuntos();
     }
 
-    public void jugarCarta(int index, ConfiguracionJugada jugada) throws Exception {
-        var jugador = partida.getJugadorActual();
-        var mano = jugador.getMano();
-
-        if (jugada.enviarAPozo) {
-            mano.enviarAPozo(index);
-            return;
-        }
-
-        var carta = mano.getCarta(index);
-        
-        Pila pila = null;
-        
-        // TODO: Decidir a donde mover la carta.
-        if (carta.isKilometrica()) {   
-            pila = jugador.getPilaKilometrica();
-        }
-        
-        // Mover una carta especifica de la mano a una pila.
-        Pila.transferir(mano, pila, index);    
+    public void jugada(ConfiguracionJugada jugada) throws Exception {
+        partida.jugada(jugada);
     }
-    
+        
     public boolean esFinal() {
-        // TODO
+        var jugadores = partida.getJugadores();
+        for(Jugador j: jugadores){
+            if(j.ganaPartida()){
+                
+            }
+        }
         return false;
     }
   
@@ -70,11 +59,7 @@ public final class Juego {
         return partida.esFinal();
     }
 
-    public Mazo getMazo() {
-        return partida.getMazo();
-    }
-
-    public Partida getTurno() {
+    public Partida getPartida() {
         return partida;
     }
 }

@@ -23,6 +23,26 @@ public class Jugador {
     public Jugador(int equipo) {
         this.equipo = equipo;
     }
+    
+    public boolean mismoEquipo(Jugador jugador){
+        return equipo == jugador.getEquipo();
+    }
+    
+    public int getEquipo(){
+        return equipo;
+    }
+    
+    public boolean tieneCartaDistancia() {
+        return kilometrica.size() > 0;
+    }
+    
+    public boolean esViajeSeguro() {
+        return kilometrica.esViajeSeguro();
+    }
+    
+    public boolean esViajeCompleto() {
+        return kilometrica.esViajeCompleto();
+    }
 
     public LinkedList<Carta> tomarDePila(Mazo mazo, int cantidad) {
         LinkedList<Carta> cartasTomadas = new LinkedList<>();
@@ -65,7 +85,7 @@ public class Jugador {
 
         // TODO: golpes de seguridad/contrataque.
         puntos += this.getPuntosViajeCompleto();
-
+        
         return puntos;
     }
 
@@ -79,6 +99,10 @@ public class Jugador {
         kilometrica.vaciar();
         contrataque.vaciar();
         seguridadEscudo.vaciar();
+    }
+    
+    public boolean ganaPartida() {
+        return puntuacion >= Juego.PUNTOS_MIN_PARA_GANAR;
     }
 
     private int getPuntosPorKm() {
