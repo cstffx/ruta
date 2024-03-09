@@ -160,5 +160,5 @@ public class Partida {
 
         // Mover una carta especifica de la mano a una pila.
         Pila.transferir(mano, pila, index);
-    }
+    } 
 }
