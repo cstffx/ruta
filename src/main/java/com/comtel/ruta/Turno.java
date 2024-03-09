@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class Turno {
     
     private int actual = 0; 
-    private LinkedList<Jugador> jugadores;
+    private final LinkedList<Jugador> jugadores;
     
     public Turno(int size, Mazo mazo){
         this.jugadores = new LinkedList<>();   
@@ -18,7 +18,12 @@ public class Turno {
         }
     }
     
-    public void siguienteJugador() {
+    public Jugador getJugadorActual() {
+        return this.jugadores.get(this.actual);
+    }
+    
+    public Jugador siguienteJugador() {
         this.actual = (this.actual + 1) % this.jugadores.size();
+        return this.getJugadorActual();
     }
 }
