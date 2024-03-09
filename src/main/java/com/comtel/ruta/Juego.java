@@ -8,12 +8,17 @@ import java.util.LinkedList;
  */
 public final class Juego {
 
-    private Mazo mazo = new Mazo();
-    private final LinkedList<Jugador> jugadores;
-    private int jugadorActual;
+    public static int CARTAS_TOTALES = 108; 
     
-    public Juego() { 
-        this.jugadores = new LinkedList<>();
+    private final Mazo mazo = new Mazo();
+    private final LinkedList<Jugador> jugadores;
+    private final int jugadorActual = 0;
+    
+    public Juego(int jugadores) { 
+        this.jugadores = new LinkedList<>();   
+        for(int i = 0; i < jugadores; i++){
+            this.jugadores.push(new Jugador(this.mazo));
+        }
     }
     
     public boolean esFinal() {

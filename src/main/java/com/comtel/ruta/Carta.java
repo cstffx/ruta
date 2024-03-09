@@ -4,7 +4,9 @@ enum CartaTipo {
     PeligroAtaque,
     SolucionesDefensa,
     SeguridadEscudo,
-    DistanciaKilometrica
+    DistanciaKilometrica, 
+    SemaforoVerde,
+    SemaforoRojo
 }
 
 enum CartaSubtipo {
@@ -27,6 +29,7 @@ enum CartaSubtipo {
     Distancia1075Km,
     Distancia1050Km,
     Distancia1025Km,
+    Ninguno,
 }
 
 /**

@@ -1,5 +1,6 @@
 package com.comtel;
 
+import com.comtel.ruta.Juego;
 import com.comtel.ruta.Mazo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +18,6 @@ public class MazoTest {
     @DisplayName("El mazo debe contener 106 cartas")
     public void crearMazoTest() {
         Mazo mazo = new Mazo();
-        assertEquals(106, mazo.size());
+        assertEquals(Juego.CARTAS_TOTALES, mazo.size());
     }
 }
