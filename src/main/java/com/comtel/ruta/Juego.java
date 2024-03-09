@@ -1,44 +1,53 @@
 package com.comtel.ruta;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
  * @author user
  */
-public class Juego {
+public final class Juego {
 
-    private LinkedList<Carta> mazo;
+    private final LinkedList<Carta> mazo;
     
     public Juego() {
+        this.mazo = this.crearMazo();
     }
     
-    private void inicializarMazo() {
-        this.mazo = new LinkedList<>();
+    public LinkedList<Carta> crearMazo() {
         
-        LinkedList<CartaTupla> vectorInicializacion = new LinkedList<>();
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Siga, 3));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Pinchazo, 3));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Accidente, 3));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.LimiteVelocidad, 4));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Pare, 5));
+        LinkedList<CartaTupla> vi = new LinkedList<>();
+        
+        vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Siga, 3));
+        vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Pinchazo, 3));
+        vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Accidente, 3));
+        vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.LimiteVelocidad, 4));
+        vi.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Pare, 5));
 
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Gasolina, 6));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.LlantaRepuesto, 6));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Reparacion, 6));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.FinLimiteVelocidad, 6));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Siga, 14));
+        vi.push(new CartaTupla(CartaTipo.SolucionesDefensa, CartaSubtipo.Gasolina, 6));
+        vi.push(new CartaTupla(CartaTipo.SolucionesDefensa, CartaSubtipo.LlantaRepuesto, 6));
+        vi.push(new CartaTupla(CartaTipo.SolucionesDefensa, CartaSubtipo.Reparacion, 6));
+        vi.push(new CartaTupla(CartaTipo.SolucionesDefensa, CartaSubtipo.FinLimiteVelocidad, 6));
+        vi.push(new CartaTupla(CartaTipo.SolucionesDefensa, CartaSubtipo.Siga, 14));
         
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Sistema, 1));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.LlantaIrrompible, 1));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.ViaLibre, 1));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.AzAlVolante, 1));
+        vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.Sistema, 1));
+        vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.LlantaIrrompible, 1));
+        vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.ViaLibre, 1));
+        vi.push(new CartaTupla(CartaTipo.SeguridadEscudo, CartaSubtipo.AzAlVolante, 1));
         
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Distancia4200Km, 9));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Distancia12100Km, 9));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Distancia1075Km, 9));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Distancia1050Km, 9));
-        vectorInicializacion.push(new CartaTupla(CartaTipo.PeligroAtaque, CartaSubtipo.Distancia1025Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia4200Km, 4));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia12100Km, 12));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1075Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1050Km, 10));
+        vi.push(new CartaTupla(CartaTipo.DistanciaKilometrica, CartaSubtipo.Distancia1025Km, 10));
+        
+        LinkedList<Carta> result = new LinkedList<>();
+        for( CartaTupla tupla: vi ){
+            for(int i = 0; i < tupla.cantidad; i++){
+                result.add(new Carta(tupla.tipo, tupla.subtipo));
+            }
+        }
+        
+        return result;
     }
 }
