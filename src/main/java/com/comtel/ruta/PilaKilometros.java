@@ -16,7 +16,7 @@ public class PilaKilometros extends Pila {
         return true;
     }
     
-    public boolean completaViaje() {
+    public boolean esViajeCompleto() {
         return this.getKilometrosTotales() == Juego.KILOMETROS_POR_VIAJE_COMPLETO;
     }
     
@@ -27,5 +27,10 @@ public class PilaKilometros extends Pila {
             total += carta.getKilometros();
         }
         return total;
+    }
+    
+    public int getPuntosTotales(){
+        var total = this.getKilometrosTotales();
+        return Juego.PUNTOS_POR_KM * total;
     }
 }

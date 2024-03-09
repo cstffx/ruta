@@ -24,7 +24,7 @@ public class JuegoTest {
             jugadores.push(new Jugador(0));
         }
 
-        juego.nuevoJuego();
+        juego.nuevaPartida();
 
         for (Jugador jugador : jugadores) {
             var mano = jugador.getMano();

@@ -14,7 +14,6 @@ public class Mano extends Pila {
         return null;
     }
     
-    
     /**
      * Envía una carta al pozo
      * @param index

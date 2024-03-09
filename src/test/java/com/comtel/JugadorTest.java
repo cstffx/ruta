@@ -23,7 +23,7 @@ public class JugadorTest {
         
         for(int i = 0; i < cantidadJugadores; i++){
             var jugador = new Jugador(0);
-            jugador.tomar(mazo, Juego.CARTAS_EN_MANO);
+            jugador.tomarDePila(mazo, Juego.CARTAS_EN_MANO);
         }
         
         var obtenido = mazo.size();

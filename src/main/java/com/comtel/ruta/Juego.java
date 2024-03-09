@@ -1,7 +1,6 @@
 package com.comtel.ruta;
 
 /**
- *
  * @author user
  */
 public final class Juego {
@@ -21,105 +20,61 @@ public final class Juego {
     public static int PUNTOS_POR_ACCION_RETARDADA = 300;
     public static int PUNTOS_POR_VIAJE_SEGURO = 300;
     
-    private Mazo mazo;
-    private Turno turno;
+    private final Partida partida;
 
     public Juego() {
-        this.turno = new Turno();
-        this.nuevoJuego();
+        partida = new Partida();
     }
 
-    public void nuevoJuego() {
-        this.mazo = new Mazo();
-        // Repartir cartas.
-        var jugadores = this.turno.getJugadores();
-        for (Jugador jugador : jugadores) {
-            jugador.tomar(mazo, 6);
-        }
+    public void nuevaPartida() {
+        partida.nuevaPartida();
     }
 
     public Carta robarCarta() {
-        var jugador = this.turno.getJugadorActual();
-        var cartas = jugador.tomar(mazo, 1);
-        if (cartas.isEmpty()) {
-            return null;
-        }
-        return cartas.get(0);
+        return partida.robarCarta();
+    }
+    
+    public void contabilizarPuntos() {
+        partida.contabilizarPuntos();
     }
 
     public void jugarCarta(int index, ConfiguracionJugada jugada) throws Exception {
-        var jugador = this.turno.getJugadorActual();
+        var jugador = partida.getJugadorActual();
+        var mano = jugador.getMano();
 
         if (jugada.enviarAPozo) {
-            jugador.getMano().enviarAPozo(index);
+            mano.enviarAPozo(index);
             return;
         }
 
-        var puntos = 0;
-        var mano = jugador.getMano();
-        var carta = mano.getAll().get(index);
+        var carta = mano.getCarta(index);
         
-        if (carta.isKilometrica()) {
-            var pila = jugador.getPilaKilometrica();
-            
-            // Mover la carta a la pila kilometrica.
-            Pila.transferir(mano, pila, index);
-            
-            // Contar puntos -> 
-            // Puntos por kilometros.
-            puntos += carta.getPuntuacionPorKilometros();
-            
-            // Puntos por viaje completo. 
-            if(pila.completaViaje()){
-                puntos += Juego.PUNTOS_POR_VIAJE_COMPLETO;
-                // Puntos por accion retardada.
-                if(mazo.vacio()){
-                    puntos += Juego.PUNTOS_POR_ACCION_RETARDADA;
-                }
-            }
-            
-            // Puntos por viaje seguro
-            if(pila.viajeSeguro()){
-                puntos += Juego.PUNTOS_POR_VIAJE_SEGURO;
-            }
-            
-        } else if (carta.isSeguridad()) {
-            // Contar cantidad de cartas de seguridad. 
-            var cantidad = jugador.getPilaSeguridadEscudo().size();
-            if (cantidad == Juego.CANTIDAD_SEGURIDAD_ESCUDO) {
-                puntos += Juego.PUNTOS_POR_TODAS_SEGURIDAD;
-            } else {
-                puntos += Juego.PUNTOS_POR_UNA_SEGURIDAD;
-            }
+        Pila pila = null;
+        
+        // TODO: Decidir a donde mover la carta.
+        if (carta.isKilometrica()) {   
+            pila = jugador.getPilaKilometrica();
         }
         
-        /// TODO: Implementar continuacion/extension.
-                
-        jugador.anotarPuntos(puntos);
+        // Mover una carta especifica de la mano a una pila.
+        Pila.transferir(mano, pila, index);    
     }
     
     public boolean esFinal() {
-        
-    }
-
-    public boolean esFinalParcial() {
-        // Un jugador alcanza exactamente 1000 KM. 
-        
-        
-        
-        
-        // TODO: Utilizar eventos
-        if (this.mazo.vacio()) {
-            return true;
-        }
+        // TODO
         return false;
+    }
+  
+    // TODO: Utilizar eventos
+    public boolean esFinalParcial() {
+        return partida.esFinal();
     }
 
     public Mazo getMazo() {
-        return this.mazo;
+        return partida.getMazo();
     }
 
-    public Turno getTurno() {
-        return this.turno;
+    public Partida getTurno() {
+        return partida;
     }
 }

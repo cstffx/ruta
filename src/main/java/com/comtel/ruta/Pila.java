@@ -25,33 +25,45 @@ public class Pila {
     }
 
     public int size() {
-        return this.cartas.size();
+        return cartas.size();
     }
 
     public boolean vacio() {
-        return this.cartas.isEmpty();
+        return cartas.isEmpty();
     }
 
     public Carta sacar(int index) {
         if (index == Pila.ULTIMA_CARTA) {
-            return this.cartas.pollLast();
+            return cartas.pollLast();
         }
-        return this.cartas.remove(index);
+        return cartas.remove(index);
     }
 
     public void meter(Carta carta) {
-        this.cartas.push(carta);
+        cartas.push(carta);
+    }
+
+    public void meter(Carta carta, int cantidad) {
+        for(int i = 0; i < cantidad; i++){
+            this.meter(carta);
+        }
     }
 
     public void vaciar() {
-        this.cartas.clear();
+        cartas.clear();
     }
 
     public void mezclar() {
-        Collections.shuffle(this.cartas);
+        Collections.shuffle(cartas);
     }
+    
+        
+    public Carta getCarta(int index){
+        return cartas.get(index);
+    } 
 
+    
     public LinkedList<Carta> getAll() {
-        return this.cartas;
+        return cartas;
     }
 }
