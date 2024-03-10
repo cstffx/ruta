@@ -48,7 +48,7 @@ public class Jugador {
         LinkedList<Carta> cartasTomadas = new LinkedList<>();
         for (int i = 0; i < cantidad; i++) {
             // Pasamos la ultima carta del mazo a la mano
-            var carta = Pila.transferir(mazo, this.mano);
+            var carta = Pila.transfer(mazo, this.mano);
             if (carta != null) {
                 cartasTomadas.push(carta);
             }
@@ -90,15 +90,15 @@ public class Jugador {
     }
 
     public void vaciarMano() {
-        this.mano.vaciar();
+        this.mano.clear();
     }
 
     public void vaciarPilas() {
-        ataqueDefensa.vaciar();
-        velocidad.vaciar();
-        kilometrica.vaciar();
-        contrataque.vaciar();
-        seguridadEscudo.vaciar();
+        ataqueDefensa.clear();
+        velocidad.clear();
+        kilometrica.clear();
+        contrataque.clear();
+        seguridadEscudo.clear();
     }
     
     public boolean ganaPartida() {

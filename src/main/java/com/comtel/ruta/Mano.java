@@ -7,9 +7,9 @@ package com.comtel.ruta;
 public class Mano extends Pila {
     
     @Override
-    public Carta sacar(int i) {
+    public Carta extract(int i) {
         if(this.size() == 7){
-            return super.sacar(i);            
+            return super.extract(i);            
         }
         return null;
     }
@@ -20,6 +20,6 @@ public class Mano extends Pila {
      * @throws Exception 
      */
     void enviarAPozo(int index) throws Exception {
-        this.sacar(index);
+        this.extract(index);
     }
 }

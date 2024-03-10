@@ -1,43 +1,5 @@
 package com.comtel.ruta;
 
-import static com.comtel.ruta.CartaSubtipo.Distancia100Km;
-import static com.comtel.ruta.CartaSubtipo.Distancia200Km;
-import static com.comtel.ruta.CartaSubtipo.Distancia25Km;
-import static com.comtel.ruta.CartaSubtipo.Distancia50Km;
-import static com.comtel.ruta.CartaSubtipo.Distancia75Km;
-
-enum CartaTipo {
-    PeligroAtaque,
-    SolucionesDefensa,
-    SeguridadEscudo,
-    DistanciaKilometrica,
-    SemaforoVerde,
-    SemaforoRojo
-}
-
-enum CartaSubtipo {
-    SinGasolina,
-    Pinchazo,
-    Accidente,
-    LimiteVelocidad,
-    Pare,
-    Gasolina,
-    LlantaRepuesto,
-    Reparacion,
-    FinLimiteVelocidad,
-    Siga,
-    Sistema,
-    LlantaIrrompible,
-    ViaLibre,
-    AzAlVolante,
-    Distancia200Km,
-    Distancia100Km,
-    Distancia75Km,
-    Distancia50Km,
-    Distancia25Km,
-    Ninguno,
-}
-
 /**
  *
  * @author user
@@ -45,9 +7,9 @@ enum CartaSubtipo {
 public class Carta {
 
     private CartaSubtipo subtipo;
-    private CartaTipo tipo;
+    private Tipo tipo;
 
-    Carta(CartaTipo tipo, CartaSubtipo subtipo) {
+    public Carta(Tipo tipo, CartaSubtipo subtipo) {
         this.tipo = tipo;
         this.subtipo = subtipo;
     }
@@ -60,20 +22,20 @@ public class Carta {
         this.subtipo = subtipo;
     }
 
-    public CartaTipo getTipo() {
+    public Tipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(CartaTipo tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
     public boolean isKilometrica() {
-        return this.tipo == CartaTipo.DistanciaKilometrica;
+        return this.tipo == Tipo.DistanciaKilometrica;
     }
 
     public boolean isSeguridad() {
-        return this.tipo == CartaTipo.SeguridadEscudo;
+        return this.tipo == Tipo.SeguridadEscudo;
     }
 
     public int getKilometros() {

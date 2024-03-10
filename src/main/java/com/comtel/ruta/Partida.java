@@ -23,6 +23,10 @@ public class Partida {
         return mazo;
     }
 
+    public void agregarJugador(Jugador j) {
+        jugadores.add(j);
+    }
+
     public void contabilizarPuntos() {
         for (Jugador jugador : jugadores) {
             var puntos = 0;
@@ -31,37 +35,37 @@ public class Partida {
 
             var seguro = jugador.esViajeSeguro();
             var completo = jugador.esViajeCompleto();
-            var mazoVacio = mazo.vacio();
+            var mazoVacio = mazo.isEmpty();
 
             if (completo && mazoVacio) {
                 puntos += Juego.PUNTOS_POR_ACCION_RETARDADA;
             }
 
-            if(seguro){
-                puntos += Juego.PUNTOS_POR_VIAJE_SEGURO;                
+            if (seguro) {
+                puntos += Juego.PUNTOS_POR_VIAJE_SEGURO;
             }
 
-            if(completo){
+            if (completo) {
                 // Advertencia!!
                 // Los puntos por viaje completo 
                 // son contados por el jugador en getPuntos(). 
-                
+
                 // Verificar eliminacion de oponentes.             
                 var eliminacion = true;
-                for(Jugador otroJugador: jugadores){
-                    if(otroJugador == jugador || otroJugador.mismoEquipo(jugador)){
+                for (Jugador otroJugador : jugadores) {
+                    if (otroJugador == jugador || otroJugador.mismoEquipo(jugador)) {
                         continue;
                     }
-                    if(jugador.tieneCartaDistancia()){
+                    if (jugador.tieneCartaDistancia()) {
                         eliminacion = false;
                         break;
                     }
-                }  
-                if(eliminacion){
+                }
+                if (eliminacion) {
                     puntos += Juego.PUNTOS_POR_ELIMINACION;
                 }
             }
-            
+
             jugador.anotarPuntos(puntos);
         }
     }
@@ -70,7 +74,7 @@ public class Partida {
         return jugadores.get(actual);
     }
 
-    public Jugador siguienteJugador() {
+    public Jugador avanzarJugador() {
         actual = (actual + 1) % jugadores.size();
         return getJugadorActual();
     }
@@ -93,7 +97,7 @@ public class Partida {
      */
     public boolean getManosVacias() {
         for (Jugador jugador : jugadores) {
-            if (false == jugador.getMano().vacio()) {
+            if (false == jugador.getMano().isEmpty()) {
                 return false;
             }
         }
@@ -112,7 +116,7 @@ public class Partida {
             return true;
         }
 
-        var mazoVacio = mazo.vacio();
+        var mazoVacio = mazo.isEmpty();
         var manoVacia = getManosVacias();
 
         return mazoVacio && manoVacia;
@@ -127,10 +131,9 @@ public class Partida {
             jugador.vaciarPilas();
 
             // Nueva mano
-            mano.vaciar();
-            for (int i = 0; i < Juego.CARTAS_EN_MANO; i++) {
-                Pila.transferir(mazo, mano, 6);
-            }
+            mano.clear();
+
+            Pila.transferMany(mazo, mano, Juego.CARTAS_EN_MANO);
         }
     }
 
@@ -153,7 +156,7 @@ public class Partida {
             return;
         }
 
-        var carta = mano.getCarta(index);
+        var carta = mano.get(index);
 
         Pila pila = null;
 
@@ -162,7 +165,9 @@ public class Partida {
             pila = jugador.getPilaKilometrica();
         }
 
-        // Mover una carta especifica de la mano a una pila.
-        Pila.transferir(mano, pila, index);
-    } 
+        if (pila != null) {
+            // Mover una carta especifica de la mano a una pila.
+            Pila.transfer(mano, pila, index);
+        }
+    }
 }
