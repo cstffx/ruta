@@ -1,4 +1,4 @@
-package com.comtel;
+package com.comtel.test;
 
 import com.comtel.ruta.Carta;
 import com.comtel.ruta.CartaSubtipo;

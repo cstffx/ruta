@@ -45,13 +45,7 @@ public final class Juego {
     }
         
     public boolean esFinal() {
-        var jugadores = partida.getJugadores();
-        for(Jugador j: jugadores){
-            if(j.ganaPartida()){
-                
-            }
-        }
-        return false;
+        return -1 != partida.getEquipoGanador();
     }
   
     // TODO: Utilizar eventos

@@ -63,6 +63,18 @@ public class Jugador {
     public PilaKilometros getPilaKilometrica() {
         return this.kilometrica;
     }
+    
+    public Pila getPilaVelocidad() {
+        return this.velocidad;
+    }
+
+    public Pila getPilaAtaqueDefensa() {
+        return this.ataqueDefensa;
+    }
+    
+    public Pila getPilaEscudo() {
+        return this.ataqueDefensa;
+    }
 
     public void anotarVictoria() {
         ++this.juegosGanados;
@@ -75,8 +87,12 @@ public class Jugador {
     public Pila getPilaSeguridadEscudo() {
         return this.seguridadEscudo;
     }
+    
+    public int getPuntuacionAcumulada(){
+        return puntuacion;
+    }
 
-    public int getPuntos() {
+    public int getPuntuacionPartida() {
         var puntos = 0;
 
         // Puntos por km. 
@@ -104,7 +120,7 @@ public class Jugador {
     public boolean ganaPartida() {
         return puntuacion >= Juego.PUNTOS_MIN_PARA_GANAR;
     }
-
+    
     private int getPuntosPorKm() {
         return this.kilometrica.getPuntosTotales();
     }

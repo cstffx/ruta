@@ -1,4 +1,4 @@
-package com.comtel;
+package com.comtel.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

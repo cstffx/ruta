@@ -1,5 +1,7 @@
 package com.comtel.ruta;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -31,7 +33,7 @@ public class Partida {
         for (Jugador jugador : jugadores) {
             var puntos = 0;
             // Puntos del jugador. 
-            puntos += jugador.getPuntos();
+            puntos += jugador.getPuntuacionPartida();
 
             var seguro = jugador.esViajeSeguro();
             var completo = jugador.esViajeCompleto();
@@ -160,14 +162,78 @@ public class Partida {
 
         Pila pila = null;
 
-        // TODO: Decidir a donde mover la carta.
-        if (carta.isKilometrica()) {
-            pila = jugador.getPilaKilometrica();
+        switch (carta.getTipo()) {
+            case DistanciaKilometrica:
+                pila = jugador.getPilaKilometrica();
+                break;
+            case PeligroAtaque:
+                jugador = jugada.jugadorDestino;
+                pila = jugador.getPilaAtaqueDefensa();
+                // Limite de velocidad se juega sobre pila kilometrica.
+                if (CartaSubtipo.LimiteVelocidad == carta.getSubtipo()) {
+                    pila = jugador.getPilaVelocidad();
+                }
+                break;
+            case SolucionesDefensa:
+                pila = jugador.getPilaAtaqueDefensa();
+                // Fin de limite de velocidad se juega sobre pila kilometrica.
+                if (CartaSubtipo.FinLimiteVelocidad == carta.getSubtipo()) {
+                    pila = jugador.getPilaVelocidad();
+                }
+                break;
+            case SeguridadEscudo:
+                pila = jugador.getPilaEscudo();
+                carta.setDireccion(jugada.direccion);
+                break;
+            case SemaforoVerde:
+                pila = jugador.getPilaAtaqueDefensa();
+                break;
+            case SemaforoRojo:
+                jugador = jugada.jugadorDestino;
+                pila = jugador.getPilaAtaqueDefensa();
+                break;
+            default:
         }
 
         if (pila != null) {
             // Mover una carta especifica de la mano a una pila.
             Pila.transfer(mano, pila, index);
         }
+    }
+    
+    public int getCantidadEquipos() {
+        int max = 0;
+        for(Jugador jugador: jugadores){
+            var equipo = jugador.getEquipo();
+            if(equipo > max){
+                max = equipo;
+            }
+        }
+        return max;
+    }
+    
+    public ArrayList<Integer> getPuntosPorEquipo() {
+        var cantidadEquipos = getCantidadEquipos();
+        ArrayList<Integer> puntuaciones = new ArrayList<>(cantidadEquipos);
+        Collections.fill(puntuaciones, 0);
+        for(Jugador j: jugadores){
+            var equipo = j.getEquipo();
+            var acumulada = j.getPuntuacionAcumulada(); 
+            var puntuacionEquipo = puntuaciones.get(equipo);
+            puntuaciones.set(equipo - 1, acumulada + puntuacionEquipo);
+        }
+        return puntuaciones;
+    } 
+    
+    public int getEquipoGanador() {
+        var equipoGanador = -1;
+        var puntosPorEquipo = getPuntosPorEquipo();
+        for(int i = 0; i < puntosPorEquipo.size(); i++){
+           if(puntosPorEquipo.get(i) >= Juego.PUNTOS_MIN_PARA_GANAR){
+               equipoGanador = i + 1;
+               break;
+           }   
+        }
+        return equipoGanador;
     }
 }

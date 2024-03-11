@@ -1,4 +1,4 @@
-package com.comtel;
+package com.comtel.test;
 
 import com.comtel.ruta.Carta;
 import com.comtel.ruta.CartaSubtipo;
@@ -111,24 +111,24 @@ public class PartidaTest {
         partida.jugada(jugada);
         assertEquals(cantidad - 1, mano.size());
         
-        assertEquals(400, jugador.getPuntos());
+        assertEquals(400, jugador.getPuntuacionPartida());
                 
         mano.addMany(carta, 1);
         partida.jugada(jugada);
         assertEquals(cantidad - 1, mano.size());
-        assertEquals(600, jugador.getPuntos());
+        assertEquals(600, jugador.getPuntuacionPartida());
         
         // 800
         mano.addMany(carta, 1);
         partida.jugada(jugada);
         assertEquals(cantidad - 1, mano.size());
-        assertEquals(800, jugador.getPuntos());
+        assertEquals(800, jugador.getPuntuacionPartida());
   
         // 1000
         mano.addMany(carta, 1);
         partida.jugada(jugada);
         assertEquals(cantidad - 1, mano.size());
-        assertEquals(1400, jugador.getPuntos());
+        assertEquals(1400, jugador.getPuntuacionPartida());
         
         assertEquals(true, partida.esFinal());
     }

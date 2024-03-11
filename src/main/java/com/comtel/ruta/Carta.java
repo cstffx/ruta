@@ -8,6 +8,7 @@ public class Carta {
 
     private CartaSubtipo subtipo;
     private Tipo tipo;
+    private Direccion direccion = Direccion.Vertical; 
 
     public Carta(Tipo tipo, CartaSubtipo subtipo) {
         this.tipo = tipo;
@@ -30,6 +31,14 @@ public class Carta {
         this.tipo = tipo;
     }
 
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+    
     public boolean isKilometrica() {
         return this.tipo == Tipo.DistanciaKilometrica;
     }

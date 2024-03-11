@@ -1,4 +1,4 @@
-package com.comtel;
+package com.comtel.test;
 
 import com.comtel.ruta.Juego;
 import com.comtel.ruta.Jugador;
