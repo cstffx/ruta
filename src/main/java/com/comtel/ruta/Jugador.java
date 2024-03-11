@@ -3,7 +3,6 @@ package com.comtel.ruta;
 import java.util.LinkedList;
 
 /**
- *
  * @author user
  */
 public class Jugador {
@@ -54,7 +53,7 @@ public class Jugador {
         return pila.kilometrica.esViajeCompleto();
     }
 
-    public LinkedList<Carta> tomarDePila(Mazo mazo, int cantidad) {
+    public LinkedList<Carta> tomarDelMazo(Mazo mazo, int cantidad) {
         LinkedList<Carta> cartasTomadas = new LinkedList<>();
         for (int i = 0; i < cantidad; i++) {
             // Pasamos la ultima carta del mazo a la mano

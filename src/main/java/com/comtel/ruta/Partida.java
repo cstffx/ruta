@@ -182,7 +182,7 @@ public class Partida {
      */
     public Carta robarCarta() {
         var jugador = getJugadorActual();
-        var cartas = jugador.tomarDePila(mazo, 1);
+        var cartas = jugador.tomarDelMazo(mazo, 1);
         if (cartas.isEmpty()) {
             return null;
         }
