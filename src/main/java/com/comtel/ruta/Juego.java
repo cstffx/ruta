@@ -12,6 +12,7 @@ public final class Juego {
 
     public static int PUNTOS_POR_UNA_SEGURIDAD = 100;
     public static int PUNTOS_POR_TODAS_SEGURIDAD = 300;
+    public static int PUNTOS_POR_CONTRATAQUE = 300;
 
     public static int KM_INSEGUROS = 200;
     public static int PUNTOS_POR_KM = 1;

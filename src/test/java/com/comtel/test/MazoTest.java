@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class MazoTest {
     
     @Test
-    @DisplayName("El mazo debe contener 106 cartas")
+    @DisplayName("El mazo debe contener 108 cartas")
     public void crearMazoTest() {
         Mazo mazo = new Mazo();
         mazo.reiniciar();

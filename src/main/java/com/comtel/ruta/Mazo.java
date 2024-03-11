@@ -6,7 +6,7 @@ import java.util.LinkedList;
  *
  * @author user
  */
-public final class Mazo extends Pila {
+public final class Mazo extends Cartas {
     
     public Mazo() {
         this.reiniciar();

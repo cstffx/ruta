@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class ManoTest {
 
     @Test
-    @DisplayName("Inicializar partida")
+    @DisplayName("Inicializar mano")
     public void testMeter() {
         var mano = new Mano();
 

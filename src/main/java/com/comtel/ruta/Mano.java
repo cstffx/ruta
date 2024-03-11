@@ -4,7 +4,7 @@ package com.comtel.ruta;
  *
  * @author user
  */
-public class Mano extends Pila {
+public class Mano extends Cartas {
     
     @Override
     public Carta extract(int i) {

@@ -10,18 +10,28 @@ public class Jugador {
 
     private int juegosGanados = 0;
     private int equipo = 0;
-    private int puntuacion = 0;
-
-    private final Pila ataqueDefensa = new Pila();
-    private final Pila velocidad = new Pila();
-    private final PilaKilometros kilometrica = new PilaKilometros();
-    private final Pila contrataque = new Pila();
-    private final Pila seguridadEscudo = new Pila();
-
+    
+    private int puntuacionPartida = 0;
+    private int puntuacionAcumulada = 0;
+    
+    // True si ya se contabilizó la bonificacion 
+    // por todas las de seguridad.
+    private boolean contabilizoTodasSeguridad = false;
+    
+    private Pila pila = new Pila(); 
+    
     private final Mano mano = new Mano();
 
     public Jugador(int equipo) {
         this.equipo = equipo;
+    }
+    
+    Pila getPila(){
+        return pila;
+    }
+    
+    void setPila(Pila pila){
+        this.pila = pila;
     }
     
     public boolean mismoEquipo(Jugador jugador){
@@ -33,22 +43,22 @@ public class Jugador {
     }
     
     public boolean tieneCartaDistancia() {
-        return kilometrica.size() > 0;
+        return pila.kilometrica.size() > 0;
     }
     
     public boolean esViajeSeguro() {
-        return kilometrica.esViajeSeguro();
+        return pila.kilometrica.esViajeSeguro();
     }
     
     public boolean esViajeCompleto() {
-        return kilometrica.esViajeCompleto();
+        return pila.kilometrica.esViajeCompleto();
     }
 
     public LinkedList<Carta> tomarDePila(Mazo mazo, int cantidad) {
         LinkedList<Carta> cartasTomadas = new LinkedList<>();
         for (int i = 0; i < cantidad; i++) {
             // Pasamos la ultima carta del mazo a la mano
-            var carta = Pila.transfer(mazo, this.mano);
+            var carta = Cartas.transfer(mazo, this.mano);
             if (carta != null) {
                 cartasTomadas.push(carta);
             }
@@ -59,50 +69,58 @@ public class Jugador {
     public Mano getMano() {
         return this.mano;
     }
+    
+        
+    public void restablecerContabilizoTodasSeguridad(){
+        contabilizoTodasSeguridad = true;
+    }
+    
+    public void anotarContabilizoTodasSeguridad(){
+        contabilizoTodasSeguridad = true;
+    }
+    
+    public boolean getContabilizoTodasSeguridad(){
+        return contabilizoTodasSeguridad;
+    }
 
     public PilaKilometros getPilaKilometrica() {
-        return this.kilometrica;
+        return pila.kilometrica;
     }
     
-    public Pila getPilaVelocidad() {
-        return this.velocidad;
+    public Cartas getPilaVelocidad() {
+        return pila.velocidad;
     }
 
-    public Pila getPilaAtaqueDefensa() {
-        return this.ataqueDefensa;
+    public Cartas getPilaAtaqueDefensa() {
+        return pila.ataqueDefensa;
     }
     
-    public Pila getPilaEscudo() {
-        return this.ataqueDefensa;
+    public Cartas getPilaEscudo() {
+        return pila.ataqueDefensa;
     }
 
     public void anotarVictoria() {
         ++this.juegosGanados;
     }
-
-    public void anotarPuntos(int puntos) {
-        this.puntuacion += puntos;
+    
+    public void anotarPuntosPartida(int puntos) {
+        this.puntuacionPartida += puntos;
     }
 
-    public Pila getPilaSeguridadEscudo() {
-        return this.seguridadEscudo;
+    public void anotarPuntosAcumulados(int puntos) {
+        this.puntuacionAcumulada += puntos;
+    }
+
+    public Cartas getPilaSeguridadEscudo() {
+        return pila.seguridadEscudo;
     }
     
     public int getPuntuacionAcumulada(){
-        return puntuacion;
+        return puntuacionAcumulada;
     }
 
     public int getPuntuacionPartida() {
-        var puntos = 0;
-
-        // Puntos por km. 
-        puntos += this.getPuntosPorKm();
-        puntos += this.getPuntosSeguridad();
-
-        // TODO: golpes de seguridad/contrataque.
-        puntos += this.getPuntosViajeCompleto();
-        
-        return puntos;
+        return puntuacionPartida;
     }
 
     public void vaciarMano() {
@@ -110,28 +128,19 @@ public class Jugador {
     }
 
     public void vaciarPilas() {
-        ataqueDefensa.clear();
-        velocidad.clear();
-        kilometrica.clear();
-        contrataque.clear();
-        seguridadEscudo.clear();
+        pila.vaciar();
+    }
+    
+    public void reiniciarPuntuacionPartida(){
+        puntuacionPartida = 0;
     }
     
     public boolean ganaPartida() {
-        return puntuacion >= Juego.PUNTOS_MIN_PARA_GANAR;
+        return puntuacionAcumulada >= Juego.PUNTOS_MIN_PARA_GANAR;
     }
-    
-    private int getPuntosPorKm() {
-        return this.kilometrica.getPuntosTotales();
-    }
-
-    private int getPuntosViajeCompleto() {
-        var completo = this.kilometrica.esViajeCompleto();
-        return completo ? Juego.PUNTOS_POR_VIAJE_COMPLETO : 0;
-    }
-
-    private int getPuntosSeguridad() {
-        int cantidad = this.seguridadEscudo.size();
+   
+    public int getPuntosSeguridad() {
+        int cantidad = pila.seguridadEscudo.size();
         int puntos = cantidad * Juego.PUNTOS_POR_UNA_SEGURIDAD;
 
         if (cantidad == Juego.CANTIDAD_SEGURIDAD_ESCUDO) {

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.comtel.ruta.Carta;
 import com.comtel.ruta.CartaSubtipo;
 import com.comtel.ruta.Tipo;
-import com.comtel.ruta.Pila;
+import com.comtel.ruta.Cartas;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +18,8 @@ public class PilaTest {
     @Test
     @DisplayName("Transferir")
     public void testTransferir() throws Exception {
-        var a = new Pila();
-        var b = new Pila();
+        var a = new Cartas();
+        var b = new Cartas();
 
         var carta1 = new Carta(Tipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km);
         var carta2 = new Carta(Tipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km);
@@ -35,11 +35,11 @@ public class PilaTest {
         assertEquals(carta3, a.get(2));
 
         // Debe transferir desde el final al comienzo
-        Pila.transfer(a, b);
+        Cartas.transfer(a, b);
         assertEquals(b.get(0), carta3);
-        Pila.transfer(a, b);
+        Cartas.transfer(a, b);
         assertEquals(b.get(1), carta2);
-        Pila.transfer(a, b);
+        Cartas.transfer(a, b);
         assertEquals(b.get(2), carta1);
 
         assertEquals(true, a.isEmpty());
@@ -49,8 +49,8 @@ public class PilaTest {
     @Test
     @DisplayName("Transferir por indice")
     public void testTransferirPorIndice() throws Exception {
-        var a = new Pila();
-        var b = new Pila();
+        var a = new Cartas();
+        var b = new Cartas();
 
         var carta1 = new Carta(Tipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km);
         var carta2 = new Carta(Tipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km);
@@ -60,13 +60,13 @@ public class PilaTest {
         a.add(carta2);
         a.add(carta3);
 
-        Pila.transfer(a, b, 1);
+        Cartas.transfer(a, b, 1);
         assertEquals(b.get(0), carta2);
 
-        Pila.transfer(a, b, 1);
+        Cartas.transfer(a, b, 1);
         assertEquals(b.get(1), carta3);
 
-        Pila.transfer(a, b, 0);
+        Cartas.transfer(a, b, 0);
         assertEquals(b.get(2), carta1);
         
         assertEquals(true, a.isEmpty());
@@ -77,13 +77,13 @@ public class PilaTest {
     @DisplayName("Agregar y transferir muchos")
     public void testTransferirMuchos() throws Exception {
         var count = 6;
-        var a = new Pila();
-        var b = new Pila();
+        var a = new Cartas();
+        var b = new Cartas();
         
         var carta = new Carta(Tipo.DistanciaKilometrica, CartaSubtipo.Distancia25Km);
         a.addMany(carta, count);
 
-        Pila.transferMany(a, b, count);
+        Cartas.transferMany(a, b, count);
 
         assertEquals(0, a.size());
         assertEquals(count, b.size());

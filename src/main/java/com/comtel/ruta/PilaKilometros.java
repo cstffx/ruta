@@ -4,7 +4,7 @@ package com.comtel.ruta;
  *
  * @author user
  */
-public class PilaKilometros extends Pila {
+public class PilaKilometros extends Cartas {
     
     public boolean esViajeSeguro() {
         var cartas = this.getAll(); 
